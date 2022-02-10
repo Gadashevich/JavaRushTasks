@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Solution {
     public static void main(String[] args) {
         String militaryCommissar = ", явитесь в военкомат";
-//Решено (для валидации нужно было убрать лишние sout)
+//Решено (для валидации нужно было убрать лишние sout)11
         Scanner scanner = new Scanner(System.in);
    //     System.out.print("Введите имя - ");
         String name = scanner.nextLine();
