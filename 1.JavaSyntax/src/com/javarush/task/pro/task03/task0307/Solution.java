@@ -13,6 +13,7 @@ public class Solution {
        if(x<20 || x>60) {
            System.out.println("можно не работать");
        }
+
        // решено
     }
 }
