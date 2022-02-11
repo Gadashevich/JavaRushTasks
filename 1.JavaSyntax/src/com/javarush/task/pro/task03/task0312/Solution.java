@@ -15,7 +15,7 @@ public class Solution {
             System.out.println("строки одинаковые");
         } else {//напишите тут ваш код
             System.out.println("строки разные");
-
+        //решено
         }
     }
 }
