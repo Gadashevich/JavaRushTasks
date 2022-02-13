@@ -8,13 +8,15 @@ import java.util.Scanner;
 
 public class Solution {
     public static void main(String[] args) {
-      Scanner scanner = new Scanner(System.in);
-        Double one = scanner.nextDouble();
-        Double two = scanner.nextDouble();
-        if(one == two) {
+        Scanner scanner = new Scanner(System.in);
+        Double one = Double.parseDouble(scanner.nextLine());
+        Double two = Double.parseDouble(scanner.nextLine());
+
+        if(Math.abs(one - two)<0.000001){
             System.out.println("числа равны");
-        }else {//напишите тут ваш код
+        }else {
             System.out.println("числа не равны");
         }
+
     }
 }
