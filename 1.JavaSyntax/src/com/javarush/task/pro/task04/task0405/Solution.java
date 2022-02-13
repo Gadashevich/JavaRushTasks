@@ -6,22 +6,23 @@ package com.javarush.task.pro.task04.task0405;
 
 public class Solution {
     public static void main(String[] args) {
-        String b = "Б";
-        int x = 0;
-        int y = 0;
 
+        int height =1 ;
+        while(height <= 10){
+            int weight =1;
+            while(weight <= 20){
+                if(height==1 || height==10) {
+                    System.out.print("Б");
+                }else if(weight==1 || weight==20){
+                    System.out.print("Б");
+                }else{
+                    System.out.print(" ");
+                }
+                weight++;
+            }
+            height++;
+            System.out.println();
 
-        while(x<2){
-            System.out.println(b.repeat(20));
-            while (y<9) {
-            System.out.println("Б                  Б");
-            // while (y<)
-            y++;
         }
-            x++;
-
-        }
-// можно нарисовать пробелы, но как обойтись без этого? Возможно нужно взять букву Б в цикл
-
     }
 }
