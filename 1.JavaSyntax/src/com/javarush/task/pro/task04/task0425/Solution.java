@@ -16,11 +16,9 @@ public class Solution {
         for (int i = 0; i <10 ; i++) {
             for (int j = 0; j <10 ; j++) {
                 if(i==9){
-                    System.out.print(bug);
-                } else if(j==3 && i<8){
+                    System.out.print(death);
+                } else if(j==3 && i<9){
                     System.out.print(hole);
-                } else if(j==3 && i==8){
-                    System.out.print(robot);
                 } else{
                     System.out.print(land);
                 }
