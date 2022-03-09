@@ -1,0 +1,12 @@
+taskKey="com.javarush.task.pro.task13.task1301"\n\nОформляем возврат
+
+В классе Solution есть метод arrayToHashSet(String[]), который должен из переданного массива вернуть
+eHashSet&lt;String&gt; с теми же элементами.
+Метод main не участвует в проверке.
+
+
+Требования:
+1.	В классе Solution должен быть public static HashSet&lt;String&gt; arrayToHashSet(String[]) метод.
+2.	Метод arrayToHashSet(String[]) должен быть реализован согласно условию.
+
+
