@@ -12,7 +12,7 @@ public class Solution {
         try {
         dangerousMethod();
         } catch (Exception e){
-            System.out.println(Arrays.toString(e.getStackTrace()));
+            e.printStackTrace();
         }
 
     }

@@ -14,7 +14,7 @@ public class Solution {
         try {
             scanner = new Scanner(System.in);
             String string = scanner.nextLine();
-            System.out.println(string.toLowerCase(Locale.ROOT));
+            System.out.println(string.toUpperCase(Locale.ROOT));
         } catch (Exception e) {
             System.out.println("Something went wrong : " + e);
         } finally {
