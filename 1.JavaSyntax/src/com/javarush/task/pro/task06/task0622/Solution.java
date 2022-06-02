@@ -15,12 +15,64 @@ public class Solution {
     public static String winPhrase = "Амиго одержал победу над Диабло и выбил из его головы загадочный кристалл.";
     public static String loosePhrase = "Диабло победил Амиго.";
     public static int diabloPosition;
+    public static int amigoLives = 9;
+    public static int diabloLives = 9;
+
 
     public static void main(String[] args) {
-        //напишите тут ваш код
+        diabloPosition = getRandomNumber(4);
+        findDiablo();
+        battle();
+        System.out.println(isAmigoWin() ? winPhrase : loosePhrase );
+    }
+
+    public static void findDiablo() {
+        System.out.println(getFirstPositionPhrase);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            int number = Integer.parseInt(scanner.nextLine());
+            if (number == diabloPosition) {
+                System.out.println(findDiabloPhrase);
+                break;
+            }
+            System.out.println(getPositionPhrase);
+        }
+    }
+
+    public static void amigoLostLife(){
+        amigoLives--;
+    }
+
+    public static void diabloLostLife(){
+        diabloLives -= 3;
+    }
+
+    public static int amigoAttacks(){
+        return getRandomNumber(3);
+    }
+
+    public static int diabloDefends(){
+        return getRandomNumber(3);
     }
 
     public static int getRandomNumber(int range) {
         return (int) (Math.random() * range) + 1;
     }
+
+
+    public static void battle(){
+        if(amigoLives > 0 && diabloLives > 0 ){
+            if(amigoAttacks() == diabloDefends()){
+                System.out.println(diabloDefendPhrase);
+                amigoLostLife();
+            } else{
+                System.out.println(amigoAttackPhrase);
+                diabloLostLife();
+            }
+        }
+    }
+    public static boolean isAmigoWin(){
+        return diabloLives <= 0;
+    }
+
 }

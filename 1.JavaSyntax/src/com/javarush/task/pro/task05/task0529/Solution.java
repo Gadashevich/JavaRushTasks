@@ -15,6 +15,7 @@ public class Solution {
     public static String[][] field = new String[height][width];
     public static int[][] bombs = new int[height][width];
 
+
     public static void main(String[] args) {
 
         for (int i = 0; i < field.length; i++) {
@@ -36,14 +37,13 @@ public class Solution {
         int countsRobotank = 10;
 
         while (countsRobotank > 0) {
-            
+           bombs = new int[height][width];
             for (int i = 0; i < bombs.length; i++) {
-                for (int j = 1; j < 10; j++) {
+                for (int j = 0; j < 10;) {
                     int k = (int) (Math.random() * width);
-                    if (bombs[i][k] == 1) {
-                        j--;
-                    } else {
+                    if (bombs[i][k] == 0) {
                         bombs[i][k] = 1;
+                        j++;
                     }
                 }
             }
