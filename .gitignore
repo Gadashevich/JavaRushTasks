@@ -22,3 +22,5 @@ target/
 /Instruction.png
 /out.log
 /out.log.*
+/lib/
+/lib/javafx-sdk-17.0.2/
