@@ -3,23 +3,23 @@ package com.javarush.games.game2048;
 import com.javarush.engine.cell.*;
 
 public class Game2048 extends Game {
-    private static  final int SIDE = 4;
+    private static final int SIDE = 4;
     private int[][] gameField = new int[SIDE][SIDE];
 
     @Override
     public void initialize() {
-        setScreenSize(SIDE,SIDE);
+        setScreenSize(SIDE, SIDE);
         createGame();
         drawScene();
     }
 
-    private void createGame(){
-    createNewNumber();
-    createNewNumber();
+    private void createGame() {
+        createNewNumber();
+        createNewNumber();
     }
 
-    private void drawScene(){
-        for (int y = 0; y <SIDE ; y++) {
+    private void drawScene() {
+        for (int y = 0; y < SIDE; y++) {
             for (int x = 0; x < SIDE; x++) {
                 setCellColoredNumber(x, y, gameField[y][x]);
             }
@@ -43,14 +43,14 @@ public class Game2048 extends Game {
 
     }
 
-    private void setCellColoredNumber(int x, int y, int value){
+    private void setCellColoredNumber(int x, int y, int value) {
         Color newColor = getColorByValue(value);
         String strValue = value > 0 ? "" + value : "";
-        setCellValueEx(x,y,newColor ,strValue);
+        setCellValueEx(x, y, newColor, strValue);
     }
 
-    private Color getColorByValue(int value){
-        switch (value){
+    private Color getColorByValue(int value) {
+        switch (value) {
             case 0:
                 return Color.WHITE;
             case 2:
@@ -75,21 +75,34 @@ public class Game2048 extends Game {
                 return Color.LIME;
             case 2048:
                 return Color.AQUAMARINE;
-            default: return Color.NONE;
+            default:
+                return Color.NONE;
         }
     }
 
-    private boolean compressRow(int[] row){
+    private boolean compressRow(int[] row) {
         int index = 0;
         boolean flag = false;
-        for (int x = 0; x <row.length ; x++) {
-            if(row[x] > 0) {
+        for (int x = 0; x < row.length; x++) {
+            if (row[x] > 0) {
                 if (x != index) {
                     row[index] = row[x];
                     row[x] = 0;
                     flag = true;
                 }
                 index++;
+            }
+        }
+        return flag;
+    }
+
+    private boolean mergeRow(int[] row) {
+        boolean flag = false;
+        for (int i = 0; i < row.length - 1; i++) {
+            if (row[i] != 0 && row[i] == row[i + 1]) {
+                row[i] = row[i + 1] * 2;
+                row[i + 1] = 0;
+                flag = true;
             }
         }
         return flag;
