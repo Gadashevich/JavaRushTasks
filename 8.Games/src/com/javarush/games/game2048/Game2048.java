@@ -45,8 +45,8 @@ public class Game2048 extends Game {
 
     private void setCellColoredNumber(int x, int y, int value){
         Color newColor = getColorByValue(value);
-        String str = value > 0 ? "" + value : "";
-        setCellValueEx(x,y,newColor ,str);
+        String strValue = value > 0 ? "" + value : "";
+        setCellValueEx(x,y,newColor ,strValue);
     }
 
     private Color getColorByValue(int value){
@@ -79,5 +79,20 @@ public class Game2048 extends Game {
         }
     }
 
+    private boolean compressRow(int[] row){
+        int index = 0;
+        boolean flag = false;
+        for (int x = 0; x <row.length ; x++) {
+            if(row[x] > 0) {
+                if (x != index) {
+                    row[index] = row[x];
+                    row[x] = 0;
+                    flag = true;
+                }
+                index++;
+            }
+        }
+        return flag;
+    }
 
 }
