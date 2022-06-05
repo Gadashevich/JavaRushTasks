@@ -2,8 +2,6 @@ package com.javarush.games.game2048;
 
 import com.javarush.engine.cell.*;
 
-import static com.javarush.engine.cell.Key.*;
-
 public class Game2048 extends Game {
     private static final int SIDE = 4;
     private int[][] gameField = new int[SIDE][SIDE];
@@ -27,8 +25,6 @@ public class Game2048 extends Game {
             }
         }
     }
-
-
 
     private void createNewNumber() {
         int x = getRandomNumber(SIDE);
@@ -111,8 +107,16 @@ public class Game2048 extends Game {
         }
         return flag;
     }
-    private void moveLeft(){
-
+    private void moveLeft() {
+        boolean flag = false;
+        for (int[] ints : gameField) {
+            if (compressRow(ints) | mergeRow(ints) | compressRow(ints)) {
+                flag = true;
+            }
+        }
+        if (flag) {
+            createNewNumber();
+        }
     }
 
     private void moveRight(){
@@ -131,15 +135,19 @@ public class Game2048 extends Game {
        switch(key) {
             case LEFT :
                 moveLeft();
+                drawScene();
                 break;
            case RIGHT:
                moveRight();
+               drawScene();
                break;
            case UP:
                moveUp();
+               drawScene();
                break;
            case DOWN:
                moveDown();
+               drawScene();
                break;
         }
     }
