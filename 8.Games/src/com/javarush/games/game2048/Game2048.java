@@ -5,6 +5,7 @@ import com.javarush.engine.cell.*;
 public class Game2048 extends Game {
     private static final int SIDE = 4;
     private int[][] gameField = new int[SIDE][SIDE];
+    private boolean isGameStopped = false;
 
     @Override
     public void initialize() {
@@ -27,6 +28,10 @@ public class Game2048 extends Game {
     }
 
     private void createNewNumber() {
+        if(getMaxTileValue() == 2048) {
+            win();
+        } 
+        
         int x = getRandomNumber(SIDE);
         int y = getRandomNumber(SIDE);
         int number = getRandomNumber(10);
@@ -40,7 +45,6 @@ public class Game2048 extends Game {
         } else {
             createNewNumber();
         }
-
     }
 
     private void setCellColoredNumber(int x, int y, int value) {
@@ -153,8 +157,23 @@ public class Game2048 extends Game {
             gameField = newGameField;
     }
 
+    private int getMaxTileValue(){
+        int maxValue = gameField[0][0];
+        for (int i = 0; i < SIDE ; i++) {
+            for (int j = 0; j < SIDE; j++) {
+                if(gameField[i][j] > maxValue){
+                    maxValue = gameField[i][j];
+                }
+            }
+        }
+        return  maxValue;
+    }
 
-
+    private void win(){
+        isGameStopped = true;
+        showMessageDialog(Color.NONE,"You win!",Color.GREEN,75);
+    }
+    
     @Override
     public void onKeyPress(Key key) {
        switch(key) {
