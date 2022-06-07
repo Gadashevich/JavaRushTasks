@@ -174,6 +174,11 @@ public class Game2048 extends Game {
         showMessageDialog(Color.NONE,"You win!",Color.GREEN,75);
     }
 
+    private void gameOver(){
+        isGameStopped = true;
+        showMessageDialog(Color.NONE,"You Lose!",Color.RED,75);
+    }
+
     private  boolean canUserMove() {
         for (int i = 0; i < SIDE; i++) {
             for (int j = 0; j < SIDE; j++) {
@@ -191,6 +196,11 @@ public class Game2048 extends Game {
 
     @Override
     public void onKeyPress(Key key) {
+        if(!canUserMove() ){
+            gameOver();
+            return;
+        }
+
        switch(key) {
             case LEFT :
                 moveLeft();
