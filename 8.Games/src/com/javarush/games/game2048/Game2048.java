@@ -6,7 +6,7 @@ public class Game2048 extends Game {
     private static final int SIDE = 4;
     private int[][] gameField = new int[SIDE][SIDE];
     private boolean isGameStopped = false;
-
+    private int score;
     @Override
     public void initialize() {
         setScreenSize(SIDE, SIDE);
@@ -108,6 +108,8 @@ public class Game2048 extends Game {
                 row[i] = row[i + 1] * 2;
                 row[i + 1] = 0;
                 flag = true;
+                score = score +row[i];
+                setScore(score);
             }
         }
         return flag;
@@ -203,6 +205,8 @@ public class Game2048 extends Game {
                 isGameStopped = false;
                 createGame();
                 drawScene();
+                score = 0;
+                setScore(score);
             } else {
               return;
             }
