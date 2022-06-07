@@ -15,6 +15,7 @@ public class Game2048 extends Game {
     }
 
     private void createGame() {
+        gameField = new int[SIDE][SIDE];
         createNewNumber();
         createNewNumber();
     }
@@ -28,10 +29,10 @@ public class Game2048 extends Game {
     }
 
     private void createNewNumber() {
-        if(getMaxTileValue() == 2048) {
+        if (getMaxTileValue() == 2048) {
             win();
-        } 
-        
+        }
+
         int x = getRandomNumber(SIDE);
         int y = getRandomNumber(SIDE);
         int number = getRandomNumber(10);
@@ -111,6 +112,7 @@ public class Game2048 extends Game {
         }
         return flag;
     }
+
     private void moveLeft() {
         boolean flag = false;
         for (int[] ints : gameField) {
@@ -123,7 +125,7 @@ public class Game2048 extends Game {
         }
     }
 
-    private void moveRight(){
+    private void moveRight() {
         rotateClockwise();
         rotateClockwise();
         moveLeft();
@@ -139,7 +141,7 @@ public class Game2048 extends Game {
         rotateClockwise();
     }
 
-    private void moveDown(){
+    private void moveDown() {
         rotateClockwise();
         moveLeft();
         rotateClockwise();
@@ -147,46 +149,46 @@ public class Game2048 extends Game {
         rotateClockwise();
     }
 
-    private void rotateClockwise(){
+    private void rotateClockwise() {
         int[][] newGameField = new int[SIDE][SIDE];
-        for (int i = 0; i <SIDE; i++) {
-            for (int j = 0; j <SIDE; j++) {
-            newGameField[j][SIDE - 1 - i] = gameField[i][j];
+        for (int i = 0; i < SIDE; i++) {
+            for (int j = 0; j < SIDE; j++) {
+                newGameField[j][SIDE - 1 - i] = gameField[i][j];
             }
         }
-            gameField = newGameField;
+        gameField = newGameField;
     }
 
-    private int getMaxTileValue(){
+    private int getMaxTileValue() {
         int maxValue = gameField[0][0];
-        for (int i = 0; i < SIDE ; i++) {
+        for (int i = 0; i < SIDE; i++) {
             for (int j = 0; j < SIDE; j++) {
-                if(gameField[i][j] > maxValue){
+                if (gameField[i][j] > maxValue) {
                     maxValue = gameField[i][j];
                 }
             }
         }
-        return  maxValue;
+        return maxValue;
     }
 
-    private void win(){
+    private void win() {
         isGameStopped = true;
-        showMessageDialog(Color.NONE,"You win!",Color.GREEN,75);
+        showMessageDialog(Color.NONE, "You win!", Color.GREEN, 75);
     }
 
-    private void gameOver(){
+    private void gameOver() {
         isGameStopped = true;
-        showMessageDialog(Color.NONE,"You Lose!",Color.RED,75);
+        showMessageDialog(Color.NONE, "You Lose!", Color.RED, 75);
     }
 
-    private  boolean canUserMove() {
+    private boolean canUserMove() {
         for (int i = 0; i < SIDE; i++) {
             for (int j = 0; j < SIDE; j++) {
                 if (gameField[i][j] == 0) {
                     return true;
-                } else if ( i < SIDE - 1 && gameField[i][j] == gameField[i + 1][j] ) {
+                } else if (i < SIDE - 1 && gameField[i][j] == gameField[i + 1][j]) {
                     return true;
-                } else if ( j < SIDE - 1 && gameField[i][j] == gameField[i][j + 1] ) {
+                } else if (j < SIDE - 1 && gameField[i][j] == gameField[i][j + 1]) {
                     return true;
                 }
             }
@@ -196,31 +198,41 @@ public class Game2048 extends Game {
 
     @Override
     public void onKeyPress(Key key) {
-        if(!canUserMove() ){
+        if (isGameStopped) {
+            if (key == Key.SPACE) {
+                isGameStopped = false;
+                createGame();
+                drawScene();
+            } else {
+              return;
+            }
+        }
+
+        if (!canUserMove()) {
             gameOver();
             return;
         }
 
-       switch(key) {
-            case LEFT :
+        switch (key) {
+            case LEFT:
                 moveLeft();
                 drawScene();
                 break;
-           case RIGHT:
-               moveRight();
-               drawScene();
-               break;
-           case UP:
-               moveUp();
-               drawScene();
-               break;
-           case DOWN:
-               moveDown();
-               drawScene();
-               break;
+            case RIGHT:
+                moveRight();
+                drawScene();
+                break;
+            case UP:
+                moveUp();
+                drawScene();
+                break;
+            case DOWN:
+                moveDown();
+                drawScene();
+                break;
         }
-    }
 
+    }
 
 
 }
