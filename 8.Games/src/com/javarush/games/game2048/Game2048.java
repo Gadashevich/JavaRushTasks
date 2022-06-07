@@ -130,6 +130,19 @@ public class Game2048 extends Game {
     private void moveDown(){
 
     }
+
+    private void rotateClockwise(){
+        int[][] newGameField = new int[SIDE][SIDE];
+        for (int i = 0; i <SIDE; i++) {
+            for (int j = 0; j <SIDE; j++) {
+            newGameField[j][SIDE - 1 - i] = gameField[i][j];
+            }
+        }
+            gameField = newGameField;
+    }
+
+
+
     @Override
     public void onKeyPress(Key key) {
        switch(key) {
