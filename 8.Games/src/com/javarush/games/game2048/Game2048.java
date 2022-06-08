@@ -5,7 +5,8 @@ import com.javarush.engine.cell.*;
 public class Game2048 extends Game {
     private static final int SIDE = 4;
     private int[][] gameField = new int[SIDE][SIDE];
-
+    private boolean isGameStopped = false;
+    private int score;
     @Override
     public void initialize() {
         setScreenSize(SIDE, SIDE);
@@ -14,6 +15,7 @@ public class Game2048 extends Game {
     }
 
     private void createGame() {
+        gameField = new int[SIDE][SIDE];
         createNewNumber();
         createNewNumber();
     }
@@ -27,6 +29,10 @@ public class Game2048 extends Game {
     }
 
     private void createNewNumber() {
+        if (getMaxTileValue() == 2048) {
+            win();
+        }
+
         int x = getRandomNumber(SIDE);
         int y = getRandomNumber(SIDE);
         int number = getRandomNumber(10);
@@ -40,7 +46,6 @@ public class Game2048 extends Game {
         } else {
             createNewNumber();
         }
-
     }
 
     private void setCellColoredNumber(int x, int y, int value) {
@@ -103,10 +108,13 @@ public class Game2048 extends Game {
                 row[i] = row[i + 1] * 2;
                 row[i + 1] = 0;
                 flag = true;
+                score = score +row[i];
+                setScore(score);
             }
         }
         return flag;
     }
+
     private void moveLeft() {
         boolean flag = false;
         for (int[] ints : gameField) {
@@ -119,39 +127,116 @@ public class Game2048 extends Game {
         }
     }
 
-    private void moveRight(){
-
+    private void moveRight() {
+        rotateClockwise();
+        rotateClockwise();
+        moveLeft();
+        rotateClockwise();
+        rotateClockwise();
     }
 
-    private void moveUp(){
-
+    private void moveUp() {
+        rotateClockwise();
+        rotateClockwise();
+        rotateClockwise();
+        moveLeft();
+        rotateClockwise();
     }
 
-    private void moveDown(){
-
+    private void moveDown() {
+        rotateClockwise();
+        moveLeft();
+        rotateClockwise();
+        rotateClockwise();
+        rotateClockwise();
     }
+
+    private void rotateClockwise() {
+        int[][] newGameField = new int[SIDE][SIDE];
+        for (int i = 0; i < SIDE; i++) {
+            for (int j = 0; j < SIDE; j++) {
+                newGameField[j][SIDE - 1 - i] = gameField[i][j];
+            }
+        }
+        gameField = newGameField;
+    }
+
+    private int getMaxTileValue() {
+        int maxValue = gameField[0][0];
+        for (int i = 0; i < SIDE; i++) {
+            for (int j = 0; j < SIDE; j++) {
+                if (gameField[i][j] > maxValue) {
+                    maxValue = gameField[i][j];
+                }
+            }
+        }
+        return maxValue;
+    }
+
+    private void win() {
+        isGameStopped = true;
+        showMessageDialog(Color.NONE, "You win!", Color.GREEN, 75);
+    }
+
+    private void gameOver() {
+        isGameStopped = true;
+        showMessageDialog(Color.NONE, "You Lose!", Color.RED, 75);
+    }
+
+    private boolean canUserMove() {
+        for (int i = 0; i < SIDE; i++) {
+            for (int j = 0; j < SIDE; j++) {
+                if (gameField[i][j] == 0) {
+                    return true;
+                } else if (i < SIDE - 1 && gameField[i][j] == gameField[i + 1][j]) {
+                    return true;
+                } else if (j < SIDE - 1 && gameField[i][j] == gameField[i][j + 1]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onKeyPress(Key key) {
-       switch(key) {
-            case LEFT :
+        if (isGameStopped) {
+            if (key == Key.SPACE) {
+                isGameStopped = false;
+                createGame();
+                drawScene();
+                score = 0;
+                setScore(score);
+            } else {
+              return;
+            }
+        }
+
+        if (!canUserMove()) {
+            gameOver();
+            return;
+        }
+
+        switch (key) {
+            case LEFT:
                 moveLeft();
                 drawScene();
                 break;
-           case RIGHT:
-               moveRight();
-               drawScene();
-               break;
-           case UP:
-               moveUp();
-               drawScene();
-               break;
-           case DOWN:
-               moveDown();
-               drawScene();
-               break;
+            case RIGHT:
+                moveRight();
+                drawScene();
+                break;
+            case UP:
+                moveUp();
+                drawScene();
+                break;
+            case DOWN:
+                moveDown();
+                drawScene();
+                break;
         }
-    }
 
+    }
 
 
 }
