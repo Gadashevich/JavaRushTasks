@@ -27,6 +27,8 @@ public class SnakeGame extends Game {
     private void createGame() {
         score = 0;
         setScore(score);
+        turnDelay = 300;
+        setTurnTimer(turnDelay);
         snake = new Snake(WIDTH / 2, HEIGHT / 2);
         createNewApple();
         isGameStopped = false;
@@ -34,6 +36,7 @@ public class SnakeGame extends Game {
     }
 
     private  void createNewApple() {
+
         while (true) {
             apple = new Apple(getRandomNumber(WIDTH), getRandomNumber(HEIGHT));
             if (!snake.checkCollision(apple)) {
@@ -58,10 +61,6 @@ public class SnakeGame extends Game {
     public void initialize() {
         setScreenSize(WIDTH, HEIGHT);
         createGame();
-        drawScene();
-        turnDelay = 300;
-        setTurnTimer(turnDelay);
-
     }
 
     @Override
@@ -84,9 +83,7 @@ public class SnakeGame extends Game {
 
     @Override
     public void onKeyPress(Key key) {
-        if(key.equals(Key.SPACE) && isGameStopped) {
-          createGame();
-        } else if(key.equals(Key.LEFT)){
+        if(key.equals(Key.LEFT)){
             snake.setDirection(Direction.LEFT);
         } else  if(key.equals(Key.RIGHT)){
             snake.setDirection(Direction.RIGHT);
@@ -94,6 +91,8 @@ public class SnakeGame extends Game {
             snake.setDirection(Direction.UP);
         } else if(key.equals(Key.DOWN)) {
             snake.setDirection(Direction.DOWN);
+        } else if(key.equals(Key.SPACE) && isGameStopped) {
+            createGame();
         }
     }
 }

@@ -19,7 +19,8 @@ public class Snake {
 
         if ((this.direction.equals(Direction.LEFT) || this.direction.equals(Direction.RIGHT)) && flagX) {
             return;
-        } else if ((this.direction.equals(Direction.UP) || this.direction.equals(Direction.DOWN)) && flagY) {
+        }  
+        if ((this.direction.equals(Direction.UP) || this.direction.equals(Direction.DOWN)) && flagY) {
             return;
         }
 
@@ -52,7 +53,7 @@ public class Snake {
 
     public void move(Apple apple) {
         GameObject newHead = createNewHead();
-        if (newHead.x < 0 || newHead.x >= 15 || newHead.y < 0 || newHead.y >= 15) {
+        if (newHead.x < 0 || newHead.x >= SnakeGame.WIDTH  || newHead.y < 0 || newHead.y >= SnakeGame.HEIGHT) {
             isAlive = false;
             return;
         }
