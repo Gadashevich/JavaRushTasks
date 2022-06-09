@@ -3,6 +3,7 @@ package com.javarush.games.snake;
 import com.javarush.engine.cell.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Snake {
@@ -46,6 +47,10 @@ public class Snake {
             isAlive = false;
             return;
         }
+        if (checkCollision(newHead)){
+            isAlive = false;
+            return;
+        }
         snakeParts.add(0, newHead);
         if (newHead.x == apple.x && newHead.y == apple.y) {
             apple.isAlive = false;
@@ -69,6 +74,16 @@ public class Snake {
 
     public  void removeTail() {
         snakeParts.remove(snakeParts.size() - 1);
+    }
+
+    public boolean checkCollision(GameObject gameObject) {
+        return snakeParts.stream().anyMatch(snakePart -> gameObject.x == snakePart.x && gameObject.y == snakePart.y );
+//        for (int i = 0; i < snakeParts.size(); i++) {
+//            if (gameObject.x == snakeParts.get(i).x && gameObject.y == snakeParts.get(i).y) {
+//                return true;
+//            }
+//        }
+//        return  false;
     }
 
 }
