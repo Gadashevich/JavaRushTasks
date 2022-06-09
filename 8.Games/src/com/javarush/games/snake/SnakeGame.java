@@ -8,6 +8,7 @@ public class SnakeGame extends Game {
     public static final int HEIGHT = 15;
     private static final int GOAL = 28;
 
+    private int score;
     private boolean isGameStopped;
     private int turnDelay;
     private Snake snake;
@@ -24,6 +25,8 @@ public class SnakeGame extends Game {
     }
 
     private void createGame() {
+        score = 0;
+        setScore(score);
         snake = new Snake(WIDTH / 2, HEIGHT / 2);
         createNewApple();
         isGameStopped = false;
@@ -65,6 +68,8 @@ public class SnakeGame extends Game {
     public void onTurn(int step) {
         snake.move(apple);
         if (!apple.isAlive) {
+            setScore(score += 5);
+            setTurnTimer(turnDelay -= 10);
             createNewApple();
         }
         if (!snake.isAlive) {
