@@ -21,9 +21,15 @@ public class SnakeGame extends Game {
     }
 
     private void createGame() {
-        apple = new Apple(5,5);
         snake = new Snake(WIDTH / 2, HEIGHT / 2);
+        createNewApple();
         drawScene();
+    }
+
+    private  void createNewApple(){
+        int x = getRandomNumber(WIDTH);
+        int y = getRandomNumber(HEIGHT);
+        apple =  new Apple(x,y);
     }
 
     @Override
@@ -39,6 +45,9 @@ public class SnakeGame extends Game {
     @Override
     public void onTurn(int step) {
         snake.move(apple);
+        if (!apple.isAlive) {
+            createNewApple();
+        }
         drawScene();
     }
 
