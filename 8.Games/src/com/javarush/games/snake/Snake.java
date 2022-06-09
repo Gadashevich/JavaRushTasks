@@ -3,6 +3,7 @@ package com.javarush.games.snake;
 import com.javarush.engine.cell.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Snake {
@@ -13,6 +14,25 @@ public class Snake {
     private Direction direction = Direction.LEFT;
 
     public void setDirection(Direction direction) {
+        boolean flagX = snakeParts.get(0).x == snakeParts.get(1).x;
+        boolean flagY = snakeParts.get(0).y == snakeParts.get(1).y;
+
+        if ((this.direction.equals(Direction.LEFT) || this.direction.equals(Direction.RIGHT)) && flagX) {
+            return;
+        }  
+        if ((this.direction.equals(Direction.UP) || this.direction.equals(Direction.DOWN)) && flagY) {
+            return;
+        }
+
+        if (this.direction.equals(Direction.LEFT) && direction.equals(Direction.RIGHT)) {
+            return;
+        } else if (this.direction.equals(Direction.UP) && direction.equals(Direction.DOWN)) {
+            return;
+        } else if (this.direction.equals(Direction.RIGHT) && direction.equals(Direction.LEFT)) {
+            return;
+        } else if (this.direction.equals(Direction.DOWN) && direction.equals(Direction.UP)) {
+            return;
+        }
         this.direction = direction;
     }
 
@@ -31,16 +51,22 @@ public class Snake {
         }
     }
 
-    public void move(){
+    public void move(Apple apple) {
         GameObject newHead = createNewHead();
-        if( newHead.x < 0 || newHead.x >=15 || newHead.y < 0 || newHead.y >=15){
-        isAlive = false;
-        return;
+        if (newHead.x < 0 || newHead.x >= SnakeGame.WIDTH  || newHead.y < 0 || newHead.y >= SnakeGame.HEIGHT) {
+            isAlive = false;
+            return;
         }
-
-        snakeParts.add(0,newHead);
-        removeTail();
-
+        if (checkCollision(newHead)){
+            isAlive = false;
+            return;
+        }
+        snakeParts.add(0, newHead);
+        if (newHead.x == apple.x && newHead.y == apple.y) {
+            apple.isAlive = false;
+        } else {
+            removeTail();
+        }
     }
 
     public GameObject createNewHead() {
@@ -58,6 +84,20 @@ public class Snake {
 
     public  void removeTail() {
         snakeParts.remove(snakeParts.size() - 1);
+    }
+
+    public boolean checkCollision(GameObject gameObject) {
+        return snakeParts.stream().anyMatch(snakePart -> gameObject.x == snakePart.x && gameObject.y == snakePart.y );
+//        for (int i = 0; i < snakeParts.size(); i++) {
+//            if (gameObject.x == snakeParts.get(i).x && gameObject.y == snakeParts.get(i).y) {
+//                return true;
+//            }
+//        }
+//        return  false;
+    }
+
+    public int getLength() {
+       return snakeParts.size();
     }
 
 }
