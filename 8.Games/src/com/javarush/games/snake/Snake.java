@@ -40,16 +40,18 @@ public class Snake {
         }
     }
 
-    public void move(){
+    public void move(Apple apple) {
         GameObject newHead = createNewHead();
-        if( newHead.x < 0 || newHead.x >=15 || newHead.y < 0 || newHead.y >=15){
-        isAlive = false;
-        return;
+        if (newHead.x < 0 || newHead.x >= 15 || newHead.y < 0 || newHead.y >= 15) {
+            isAlive = false;
+            return;
         }
-
-        snakeParts.add(0,newHead);
-        removeTail();
-
+        snakeParts.add(0, newHead);
+        if (newHead.x == apple.x && newHead.y == apple.y) {
+            apple.isAlive = false;
+        } else {
+            removeTail();
+        }
     }
 
     public GameObject createNewHead() {
