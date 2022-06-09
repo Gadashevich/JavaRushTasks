@@ -13,6 +13,15 @@ public class Snake {
     private Direction direction = Direction.LEFT;
 
     public void setDirection(Direction direction) {
+        if (this.direction.equals(Direction.LEFT) && direction.equals(Direction.RIGHT)) {
+            return;
+        } else if (this.direction.equals(Direction.UP) && direction.equals(Direction.DOWN)) {
+            return;
+        } else if (this.direction.equals(Direction.RIGHT) && direction.equals(Direction.LEFT)) {
+            return;
+        } else if (this.direction.equals(Direction.DOWN) && direction.equals(Direction.UP)) {
+            return;
+        }
         this.direction = direction;
     }
 

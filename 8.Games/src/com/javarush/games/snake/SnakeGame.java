@@ -9,15 +9,6 @@ public class SnakeGame extends Game {
     private Snake snake;
     private int turnDelay;
 
-    @Override
-    public void initialize() {
-        setScreenSize(WIDTH, HEIGHT);
-        createGame();
-        drawScene();
-        turnDelay = 300;
-        setTurnTimer(turnDelay);
-
-    }
 
     private void drawScene() {
         for (int i = 0; i < WIDTH; i++) {
@@ -28,15 +19,38 @@ public class SnakeGame extends Game {
         snake.draw(this);
     }
 
+    private void createGame() {
+        snake = new Snake(WIDTH / 2, HEIGHT / 2);
+
+    }
+
+    @Override
+    public void initialize() {
+        setScreenSize(WIDTH, HEIGHT);
+        createGame();
+        drawScene();
+        turnDelay = 300;
+        setTurnTimer(turnDelay);
+
+    }
+
     @Override
     public void onTurn(int step) {
         snake.move();
         drawScene();
     }
 
-    private void createGame() {
-        snake = new Snake(WIDTH / 2, HEIGHT / 2);
 
+    @Override
+    public void onKeyPress(Key key) {
+        if(key.equals(Key.LEFT)){
+            snake.setDirection(Direction.LEFT);
+        } else  if(key.equals(Key.RIGHT)){
+            snake.setDirection(Direction.RIGHT);
+        } else  if(key.equals(Key.UP)){
+            snake.setDirection(Direction.UP);
+        } else if(key.equals(Key.DOWN)) {
+            snake.setDirection(Direction.DOWN);
+        }
     }
-
 }
