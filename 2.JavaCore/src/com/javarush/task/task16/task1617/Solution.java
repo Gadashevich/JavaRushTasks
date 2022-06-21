@@ -30,7 +30,7 @@ public class Solution {
                     }
                     numSeconds--;
                 }
-            } catch (InterruptedException ignore) {
+            } catch (InterruptedException e) {
                 System.out.println("Прервано!");
             }
 
