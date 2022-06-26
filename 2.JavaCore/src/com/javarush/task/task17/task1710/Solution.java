@@ -30,7 +30,7 @@ public class Solution {
         SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
 
         switch (args[0]) {
-            case "-c":
+            case "-c" -> {
                 if (args[2].equalsIgnoreCase("м")) {
                     person = Person.createMale(args[1], inputFormat.parse(args[3]));
                 } else if (args[2].equalsIgnoreCase("ж")) {
@@ -38,8 +38,8 @@ public class Solution {
                 }
                 allPeople.add(person);
                 System.out.println(allPeople.size() - 1);
-                break;
-            case "-r":
+            }
+            case "-r" -> {
                 if ((person = allPeople.get(Integer.parseInt(args[1]))) != null) {
                     String sex = null;
                     if (person.getSex().equals(Sex.MALE)) {
@@ -51,8 +51,8 @@ public class Solution {
                     System.out.println(person.getName() + " " + sex + " " +
                             outputFormat.format(person.getBirthDate()));
                 }
-                break;
-            case "-u":
+            }
+            case "-u" -> {
                 person = allPeople.get(Integer.parseInt(args[1]));
                 if (person == null) {
                     throw new IllegalArgumentException();
@@ -64,13 +64,13 @@ public class Solution {
                     person.setSex(Sex.FEMALE);
                 }
                 person.setBirthDate(inputFormat.parse(args[4]));
-                break;
-            case "-d":
+            }
+            case "-d" -> {
                 person = allPeople.get(Integer.parseInt(args[1]));
                 person.setName(null);
                 person.setSex(null);
                 person.setBirthDate(null);
-                break;
+            }
         }
 
 
