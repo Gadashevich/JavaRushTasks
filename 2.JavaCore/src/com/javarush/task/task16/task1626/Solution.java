@@ -13,15 +13,15 @@ public class Solution {
     }
 
     public static class CountUpRunnable implements Runnable {
-        private int countIndexUp = 1;
+        private int countIndexUp ;
 
         public void run() {
             try {
                 while (true) {
+                    ++countIndexUp ;
                     System.out.println(this);
-                    countIndexUp ++;
                     Thread.sleep(500);
-                    if (countIndexUp == number + 1) return;
+                    if (countIndexUp == number) return;
                 }
             } catch (InterruptedException e) {
             }
