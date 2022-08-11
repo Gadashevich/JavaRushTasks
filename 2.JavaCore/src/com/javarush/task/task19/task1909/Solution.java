@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class Solution {
     public static void main(String[] args) {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(reader.readLine()));
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+             BufferedReader bufferedReader = new BufferedReader(new FileReader(reader.readLine()));
              BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(reader.readLine()))) {
 //            while (bufferedReader.ready()) {
 //                String line = bufferedReader.readLine();
@@ -25,13 +25,12 @@ public class Solution {
 //                bufferedWriter.write(chars);
 //                bufferedWriter.newLine();
 //            }
-            while ((bufferedReader.ready())){
-               // String line = bufferedReader.readLine();
+            while ((bufferedReader.ready())) {
+                // String line = bufferedReader.readLine();
 
-                bufferedWriter.write( bufferedReader.readLine().replaceAll("\\.", "!"));
+                bufferedWriter.write(bufferedReader.readLine().replaceAll("\\.", "!"));
                 bufferedWriter.newLine();
             }
-
 
 
         } catch (IOException ignore) {
