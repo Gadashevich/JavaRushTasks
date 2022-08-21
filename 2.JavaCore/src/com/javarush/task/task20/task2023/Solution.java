@@ -22,7 +22,7 @@ public class Solution {
     }
 
     public static class B extends A {
-        public void method1() {
+        public void method1(B b) {
             super.method2();
             System.out.println("B class, method1");
         }
@@ -39,7 +39,7 @@ public class Solution {
 
         public void method2() {
             System.out.println("C class, method2");
-             super.method1();
+             super.method1(new B());
         }
     }
 }
