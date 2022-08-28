@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>JavaRush</groupId>
-    <artifactId>2.JavaCore</artifactId>
+    <artifactId>1.JavaSyntax</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -38,14 +38,11 @@
             <version>2.13.3</version>
         </dependency>
 
+
     </dependencies>
-
-
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-    
+
 </project>
-
-
