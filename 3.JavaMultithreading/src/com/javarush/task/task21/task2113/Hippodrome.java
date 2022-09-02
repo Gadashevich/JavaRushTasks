@@ -6,6 +6,7 @@ import java.util.List;
 public class Hippodrome {
     private List<Horse> horses = new ArrayList<>();
 
+
     Hippodrome(List<Horse> horses){
         this.horses = horses;
     }

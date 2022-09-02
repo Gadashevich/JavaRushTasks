@@ -29,5 +29,6 @@ public class Solution {
         Shop shop = mapper.readValue(yamlData, Shop.class);
 
         System.out.println(shop);
+
     }
 }
