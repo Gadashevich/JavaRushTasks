@@ -21,15 +21,20 @@ public class Solution {
         System.out.println(convertToJSON(cat));
     }
 
+
     public static String convertToJSON(Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         return mapper.writeValueAsString(object);
     }
 
+
     public static class Cat {
+        @JsonProperty("wildAnimal")
         public String name;
+        @JsonIgnore
         public int age;
+        @JsonProperty("over")
         public int weight;
 
         Cat() {
