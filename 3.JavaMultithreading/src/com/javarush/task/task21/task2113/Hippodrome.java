@@ -23,5 +23,19 @@ public class Hippodrome {
         game = new Hippodrome(horses);
     }
 
+    void run(){
+
+    }
+    void move(){
+
+    }
+    void print(){
+
+    }
+
+
+
+
+
 }
 
