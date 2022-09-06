@@ -2,6 +2,7 @@ package com.javarush.task.task21.task2113;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Hippodrome {
     private List<Horse> horses = new ArrayList<>();
@@ -15,12 +16,13 @@ public class Hippodrome {
         return this.horses;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<Horse> horses = new ArrayList<>();
         horses.add(new Horse("Black", 3, 0));
         horses.add(new Horse("Brown", 3, 0));
         horses.add(new Horse("White", 3, 0));
         game = new Hippodrome(horses);
+        game.run();
     }
 
     void run() throws InterruptedException{
@@ -37,16 +39,12 @@ public class Hippodrome {
             hors.move();
         }
     }
-    void print(){
-        for (int i = 0; i <horses.size() ; i++) {
-            horses.get(i).print();
-        }
-
+    void print() {
+        IntStream.range(0, horses.size()).forEach(i -> horses.get(i).print());
+        
         for (int i = 0; i <10 ; i++) {
             System.out.println();
         }
-
-
     }
 
 
