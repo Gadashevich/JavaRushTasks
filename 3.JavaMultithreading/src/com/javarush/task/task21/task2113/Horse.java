@@ -5,7 +5,7 @@ public class Horse {
     double speed;
     double distance;
 
-   public Horse(String name, double speed, double distance){
+    public Horse(String name, double speed, double distance) {
         this.name = name;
         this.speed = speed;
         this.distance = distance;
@@ -35,16 +35,15 @@ public class Horse {
         this.distance = distance;
     }
 
-    void move(){
-    distance += speed* Math.random();
+    void move() {
+        distance += speed * Math.random();
     }
 
-    void print(){
-       StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i <(int)distance ; i++) {
+    void print() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < (int) distance; i++) {
             stringBuilder.append(".");
         }
-        System.out.println(stringBuilder+getName());
+        System.out.println(stringBuilder + getName());
     }
-
 }
