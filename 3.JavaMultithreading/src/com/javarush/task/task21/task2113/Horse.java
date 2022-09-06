@@ -40,7 +40,11 @@ public class Horse {
     }
 
     void print(){
-
+       StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i <(int)distance ; i++) {
+            stringBuilder.append(".");
+        }
+        System.out.println(stringBuilder+getName());
     }
 
 }
