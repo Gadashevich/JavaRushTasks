@@ -1,5 +1,7 @@
 package com.javarush.task.task23.task2312;
 
+import java.util.List;
+
 public class Room {
     public static Room game;
 
@@ -52,6 +54,7 @@ public class Room {
         game = new Room(10, 10, snake);
         game.createMouse();
         game.run();
+        game.print();
     }
 
     public void run() {
@@ -59,6 +62,23 @@ public class Room {
     }
 
     public void print() {
+        int[][] matrix = new int[height][width];
+        String[] symbols = {".", "x", "X", "^", "RIP"};
+
+        List<SnakeSection> sections = snake.getSections();
+        for (SnakeSection section : sections) {
+            matrix[section.getY()][section.getX()] = 1;
+        }
+        matrix[snake.getY()][snake.getX()] = snake.isAlive() ? 2 : 4;
+        matrix[mouse.getY()][mouse.getX()] = 3;
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int index = matrix[y][x];
+                System.out.print(symbols[index]);
+            }
+            System.out.println();
+        }
 
     }
 
@@ -71,7 +91,22 @@ public class Room {
     }
 
     public void sleep() {
+        try {
+            int lvl = snake.getSections().size();
+//            if (lvl == 1) {
+//                Thread.sleep(500);
+//            } else if (lvl == 11) {
+//                Thread.sleep(300);
+//            } else if (lvl > 15) {
+//                Thread.sleep(200);
+//            }
 
+            int delay = lvl < 15 ? (520 - lvl * 20) : 200;
+            Thread.sleep(delay);
+
+        } catch (InterruptedException ignore) {
+
+        }
     }
 
 }
