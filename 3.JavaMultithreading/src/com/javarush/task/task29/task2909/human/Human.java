@@ -82,6 +82,6 @@ public class Human implements Alive{
 
     @Override
     public void live() {
-
+        
     }
 }
