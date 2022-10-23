@@ -23,6 +23,18 @@ public class Car {
         this.numberOfPassengers = numberOfPassengers;
     }
 
+    public boolean isSummer(Date date, Date summerStart, Date summerEnd) {
+        return date.after(summerStart) && date.before(summerEnd);
+    }
+
+    public double getWinterConsumption(int length) {
+        return length * winterFuelConsumption + winterWarmingUp;
+    }
+
+    public double getSummerConsumption(int length) {
+        return length * summerFuelConsumption;
+    }
+
     public static Car create(int type, int numberOfPassengers) {
         if (type == 0) {
             return new Truck(numberOfPassengers);
@@ -35,21 +47,15 @@ public class Car {
         }
     }
 
-    public int fill(double numberOfLiters) {
-        if (numberOfLiters < 0)
-            return -1;
+    public void fill(double numberOfLiters) {
+        if (numberOfLiters < 0) throw new IndexOutOfBoundsException();
         fuel += numberOfLiters;
-        return 0;
     }
 
     public double getTripConsumption(Date date, int length, Date SummerStart, Date SummerEnd) {
-        double consumption;
-        if (date.before(SummerStart) || date.after(SummerEnd)) {
-            consumption = length * winterFuelConsumption + winterWarmingUp;
-        } else {
-            consumption = length * summerFuelConsumption;
-        }
-        return consumption;
+        return isSummer(date, SummerStart, SummerEnd) ?
+                getSummerConsumption(length) :
+                getWinterConsumption(length);
     }
 
     public int getNumberOfPassengersCanBeTransferred() {
