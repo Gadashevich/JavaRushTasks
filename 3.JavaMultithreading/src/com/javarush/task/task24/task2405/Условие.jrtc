@@ -11,7 +11,8 @@ taskKey="com.javarush.task.task24.task2405"\n\nBlack box
 Требования:
 1.	Вывод на экран должен соответствовать условию задачи.
 2.	Для вывода должны быть использованы строковые константы объявленные в классе SecondClass.
-3.	В методе someAction анонимного класса Action созданного в классе Solution должен содержаться вызов метода someAction родительского класса (super.someAction()).
+3.	В методе someAction анонимного класса Action созданного в классе Solution должен содержаться вызов метода someAction
+родительского класса (super.someAction()).
 4.	В методе someAction анонимного класса Action созданного в классе Solution должен быть создан объект типа FirstClass.
 5.	В методе someAction анонимного класса Action созданного в классе Solution должен быть создан объект типа SecondClass.
 
