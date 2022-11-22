@@ -46,15 +46,25 @@ public class Server {
             }
         }
 
-       private void notifyUsers(Connection connection, String userName) throws IOException{
+        private void notifyUsers(Connection connection, String userName) throws IOException {
             for (String name : connectionMap.keySet()) {
-                if(!name.equals(userName)){
-                connection.send(new Message(MessageType.USER_ADDED,name));
+                if (!name.equals(userName)) {
+                    connection.send(new Message(MessageType.USER_ADDED, name));
                 }
 
             }
         }
 
+        private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException {
+            while (true) {
+                Message message = connection.receive();
+                if (message.getType() == MessageType.TEXT) {
+                    sendBroadcastMessage(new Message(MessageType.TEXT, userName + ": " + message.getData()));
+                } else {
+                    ConsoleHelper.writeMessage("Тип сообщения не соотвествует протоколу");
+                }
+            }
+        }
 
     }
 
