@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 
@@ -17,6 +18,34 @@ public class Server {
             this.socket = socket;
         }
 
+        private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
+            while (true) {
+                connection.send(new Message(MessageType.NAME_REQUEST));
+                Message message = connection.receive();
+                if (message.getType() != MessageType.USER_NAME) {
+                    ConsoleHelper.writeMessage("Тип сообщения не соотвествует протоколу");
+                    continue;
+                }
+                String userName = message.getData();
+
+                if (Objects.isNull(userName)) {
+                    ConsoleHelper.writeMessage("Имя пользователя не может отсутствовать");
+                    continue;
+                }
+                if (userName.isEmpty()) {
+                    ConsoleHelper.writeMessage("Имя пользователя не может быть пустым");
+                    continue;
+                }
+                if (connectionMap.containsKey(userName)) {
+                    ConsoleHelper.writeMessage("Пользователь уже подключен");
+                    continue;
+                }
+                connectionMap.put(userName, connection);
+                connection.send(new Message(MessageType.NAME_ACCEPTED));
+                return userName;
+            }
+        }
+
     }
 
     public static void sendBroadcastMessage(Message message) {
@@ -24,8 +53,8 @@ public class Server {
             try {
                 value.send(message);
             } catch (IOException e) {
-                //  ConsoleHelper.writeMessage("Не смогли отправить сообщение " + connection.getRemoteSocketAddress());
-                System.out.println("не смогли отправить сообщение");
+                ConsoleHelper.writeMessage("Не смогли отправить сообщение ");
+
             }
         }
     }
