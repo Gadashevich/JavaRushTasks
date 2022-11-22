@@ -11,32 +11,62 @@ public class Client {
     protected Connection connection;
     private volatile boolean clientConnected = false;
 
+    public void run() {
+        SocketThread socketThread = getSocketThread();
+        socketThread.setDaemon(true);
+        socketThread.start();
+        try {
+            synchronized (this) {
+                wait();
+            }
+        } catch (InterruptedException e) {
+            ConsoleHelper.writeMessage("Произошла ошибка во время работы клиента");
+            return;
+        }
+
+        if (clientConnected) {
+            ConsoleHelper.writeMessage("Соединение установлено. Для выхода наберите команду 'exit'.");
+            while (clientConnected) {
+                String text = ConsoleHelper.readString();
+                if (text.equals("exit")) {
+                    break;
+                }
+                if (shouldSendTextFromConsole()) {
+                    sendTextMessage(text);
+                }
+            }
+        } else {
+            ConsoleHelper.writeMessage("Произошла ошибка во время работы клиента.");
+        }
+    }
+
     protected String getServerAddress() {
         ConsoleHelper.writeMessage("Введите адресс сервера: ");
         return ConsoleHelper.readString();
     }
-    protected int getServerPort(){
+
+    protected int getServerPort() {
         ConsoleHelper.writeMessage("Введите порт сервера: ");
         return ConsoleHelper.readInt();
     }
 
-    protected String getUserName(){
+    protected String getUserName() {
         ConsoleHelper.writeMessage("Введите ваше имя: ");
-        return  ConsoleHelper.readString();
+        return ConsoleHelper.readString();
     }
 
-    protected boolean shouldSendTextFromConsole(){
+    protected boolean shouldSendTextFromConsole() {
         return true;
     }
 
-    protected SocketThread getSocketThread(){
+    protected SocketThread getSocketThread() {
         return new SocketThread();
     }
 
-    protected void sendTextMessage(String text){
-        try{
-            connection.send(new Message(MessageType.TEXT,text));
-        } catch (IOException e){
+    protected void sendTextMessage(String text) {
+        try {
+            connection.send(new Message(MessageType.TEXT, text));
+        } catch (IOException e) {
             ConsoleHelper.writeMessage("Сообщение не отправлено");
             clientConnected = false;
         }
@@ -44,5 +74,10 @@ public class Client {
 
     public class SocketThread extends Thread {
 
+    }
+
+    public static void main(String[] args) {
+        Client client = new Client();
+        client.run();
     }
 }
