@@ -66,6 +66,27 @@ public class Server {
             }
         }
 
+        @Override
+        public void run() {
+            ConsoleHelper.writeMessage("Установлено новое соединение с удаленным адресом " + socket.getRemoteSocketAddress());
+            String userName = null;
+            try (Connection connection = new Connection(socket))
+            {
+                userName = serverHandshake(connection);
+                sendBroadcastMessage(new Message(MessageType.USER_ADDED, userName));
+                notifyUsers(connection, userName);
+                serverMainLoop(connection, userName);
+
+            } catch (IOException | ClassNotFoundException e) {
+                ConsoleHelper.writeMessage("Произошла ошибка при обмене данными с удаленным адресом." + socket.getRemoteSocketAddress());
+            }
+            if (userName != null) {
+                connectionMap.remove(userName);
+                sendBroadcastMessage(new Message(MessageType.USER_REMOVED, userName));
+            }
+            ConsoleHelper.writeMessage("Соеденения с " + socket.getRemoteSocketAddress() + " закрыто");
+
+        }
     }
 
     public static void sendBroadcastMessage(Message message) {
