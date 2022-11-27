@@ -1,6 +1,5 @@
 package com.javarush.task.task30.task3008.client;
 
-
 import com.javarush.task.task30.task3008.ConsoleHelper;
 
 import java.io.IOException;
