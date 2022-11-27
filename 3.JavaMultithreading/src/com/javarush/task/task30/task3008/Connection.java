@@ -22,7 +22,6 @@ public class Connection implements Closeable {
     public void send(Message message) throws IOException {
         synchronized (out) {
             out.writeObject(message);
-
         }
     }
 
@@ -32,11 +31,11 @@ public class Connection implements Closeable {
         }
     }
 
-    public SocketAddress getRemoteSocketAddress(){
+    public SocketAddress getRemoteSocketAddress() {
        return socket.getRemoteSocketAddress();
     }
 
-    public void close() throws IOException{
+    public void close() throws IOException {
         socket.close();
         out.close();
         in.close();
