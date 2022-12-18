@@ -11,15 +11,19 @@ public class ZipAddCommand extends ZipCommand {
     @Override
     public void execute() throws Exception {
         try {
-            ConsoleHelper.writeMessage("Добавление нового файла.");
-            ZipFileManager zipFileManager = getZipFileManager();
-            ConsoleHelper.writeMessage("Введите полный путь для добавления файла в архив:");
-            Path sourcePath = Paths.get(ConsoleHelper.readString());
-            zipFileManager.addFile(sourcePath);
-            ConsoleHelper.writeMessage("Добавлен");
-        } catch (PathIsNotFoundException e) {
-            ConsoleHelper.writeMessage("не добавлен.");
-        }
+            ConsoleHelper.writeMessage("Добавление нового файла в архив.");
 
+            ZipFileManager zipFileManager = getZipFileManager();
+
+            ConsoleHelper.writeMessage("Введите полное имя файла для добавления:");
+            Path sourcePath = Paths.get(ConsoleHelper.readString());
+
+            zipFileManager.addFile(sourcePath);
+
+            ConsoleHelper.writeMessage("Добавление в архив завершено.");
+
+        } catch (PathIsNotFoundException e) {
+            ConsoleHelper.writeMessage("Файл не был найден.");
+        }
     }
 }
