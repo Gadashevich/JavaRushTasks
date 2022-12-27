@@ -19,4 +19,11 @@ private Controller controller;
     public void actionPerformed(ActionEvent e) {
 
     }
+    public void init(){
+
+    }
+
+    public void exit(){
+        controller.exit();
+    }
 }
