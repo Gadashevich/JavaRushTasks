@@ -11,6 +11,7 @@ public class Solution {
             for (int j = 0; j < 10; j++) {
                 if (j > i) {
                     System.out.println();
+                    continue label;
                 }
                 System.out.print("S");
             }
