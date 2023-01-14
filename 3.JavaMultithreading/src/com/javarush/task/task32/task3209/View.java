@@ -154,4 +154,6 @@ public class View extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(this, "Лучший HTML редактор", "О программе", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void addWindowListener() {
+    }
 }
