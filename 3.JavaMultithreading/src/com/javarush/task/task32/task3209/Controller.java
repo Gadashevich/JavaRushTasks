@@ -32,6 +32,18 @@ public class Controller {
         controller.init();
     }
 
+    public void createNewDocument() {
+
+    }
+
+    public void openDocument() {
+
+    }
+
+    public void saveDocument() {
+
+    }
+
     public void init() {
 
     }
@@ -40,6 +52,9 @@ public class Controller {
         System.exit(0);
     }
 
+    public void saveDocumentAs() {
+
+    }
 
     public void resetDocument() {
         UndoListener undoListener = view.getUndoListener();
