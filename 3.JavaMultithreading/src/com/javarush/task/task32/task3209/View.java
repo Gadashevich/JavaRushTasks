@@ -84,6 +84,15 @@ public class View extends JFrame implements ActionListener {
     }
 
     public void selectedTabChanged() {
+        int selectedIndex = tabbedPane.getSelectedIndex();
+        if (selectedIndex == 0) {
+            String paneText = plainTextPane.getText();
+            controller.setPlainText(paneText);
+        } else if (selectedIndex == 1) {
+            String plainText = controller.getPlainText();
+            plainTextPane.setText(plainText);
+        }
+        resetUndo();
 
     }
 
@@ -111,15 +120,15 @@ public class View extends JFrame implements ActionListener {
         }
     }
 
-    public void resetUndo(){
+    public void resetUndo() {
         undoManager.discardAllEdits();
     }
 
-    public boolean isHtmlTabSelected(){
+    public boolean isHtmlTabSelected() {
         return tabbedPane.getSelectedIndex() == 0;
     }
 
-    public void  selectHtmlTab(){
+    public void selectHtmlTab() {
         tabbedPane.setSelectedIndex(0);
         resetUndo();
     }
