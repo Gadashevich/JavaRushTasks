@@ -40,8 +40,21 @@ public class View extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent actionEvent) {
+        String actionCommand = actionEvent.getActionCommand();
+        if (actionCommand.equalsIgnoreCase("Новый")) {
+            controller.createNewDocument();
+        } else if (actionCommand.equalsIgnoreCase("Открыть")) {
+            controller.openDocument();
+        } else if (actionCommand.equalsIgnoreCase("Сохранить")) {
+            controller.saveDocument();
+        } else if (actionCommand.equalsIgnoreCase("Сохранить как...")) {
+            controller.saveDocumentAs();
+        } else if (actionCommand.equalsIgnoreCase("Выход")) {
+            controller.exit();
+        } else if (actionCommand.equalsIgnoreCase("О программе")) {
+            showAbout();
+        }
     }
 
     public void init() {
@@ -84,6 +97,15 @@ public class View extends JFrame implements ActionListener {
     }
 
     public void selectedTabChanged() {
+        int selectedIndex = tabbedPane.getSelectedIndex();
+        if (selectedIndex == 0) {
+            String paneText = plainTextPane.getText();
+            controller.setPlainText(paneText);
+        } else if (selectedIndex == 1) {
+            String plainText = controller.getPlainText();
+            plainTextPane.setText(plainText);
+        }
+        resetUndo();
 
     }
 
@@ -111,13 +133,27 @@ public class View extends JFrame implements ActionListener {
         }
     }
 
-    public void resetUndo(){
+    public void resetUndo() {
         undoManager.discardAllEdits();
     }
 
-    public boolean isHtmlTabSelected(){
+    public boolean isHtmlTabSelected() {
         return tabbedPane.getSelectedIndex() == 0;
     }
 
+    public void selectHtmlTab() {
+        tabbedPane.setSelectedIndex(0);
+        resetUndo();
+    }
 
+    public void update() {
+        htmlTextPane.setDocument(controller.getDocument());
+    }
+
+    public void showAbout() {
+        JOptionPane.showMessageDialog(this, "Лучший HTML редактор", "О программе", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void addWindowListener() {
+    }
 }
