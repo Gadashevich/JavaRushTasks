@@ -13,6 +13,8 @@ target/
 *.info
 *.properties
 
+
+
 /5.OnlineInternship/
 /out/
 /JavaRushPlugin.properties
