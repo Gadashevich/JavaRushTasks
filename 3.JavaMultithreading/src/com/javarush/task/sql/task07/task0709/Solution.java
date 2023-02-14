@@ -9,7 +9,18 @@ import java.sql.*;
 public class Solution {
 
     public static void main(String[] args) throws Exception {
-        //напишите тут ваш код
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root");
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("Select name,weight,birthday,inn from employee");
+        ) {
+            while (resultSet.next()) {
+                String name = resultSet.getObject("name", String.class);
+                Float weight = resultSet.getObject("weight", Float.class);
+                Date birthday = resultSet.getObject("birthday", Date.class);
+                Long inn = resultSet.getObject("inn", Long.class);
+                System.out.println(name+" "+ weight+" "+ birthday+" "+inn);
+            }
+        }
 
     }
 }
