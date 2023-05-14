@@ -1,6 +1,8 @@
 package com.javarush.task.sql.task10.task1010;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 
 import java.util.Collection;
@@ -18,7 +20,13 @@ public class Solution {
     }
 
     public static List<Employee> getAll() {
-        //напишите тут ваш код
-        return Collections.emptyList();
+       try( SessionFactory sessionFactory = MySessionFactory.getSessionFactory())
+       {
+           Session session = sessionFactory.openSession();
+           Transaction transaction = session.beginTransaction();
+           NativeQuery<Employee> nativeQuery = session.createNativeQuery("select * from employee order by age", Employee.class);
+            transaction.commit();
+           return nativeQuery.list();
+       }
     }
 }

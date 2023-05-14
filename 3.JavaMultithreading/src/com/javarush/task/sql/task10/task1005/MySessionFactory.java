@@ -16,7 +16,7 @@ public class MySessionFactory {
     private MySessionFactory() {
         Properties properties = new Properties();
         properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-        properties.put(Environment.URL, "jdbc:mysql://localhost:3306/library");
+        properties.put(Environment.URL, "jdbc:mysql://localhost:3306/test");
         properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
         properties.put("hibernate.connection.useUnicode", true);
         properties.put("hibernate.connection.characterEncoding", "UTF-8");
