@@ -1,6 +1,7 @@
 package com.javarush.task.sql.task10.task1008;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.util.Collections;
@@ -17,7 +18,13 @@ public class Solution {
     }
 
     public static List<Employee> getSorted(int offset, int limit) {
-        //напишите тут ваш код
-        return Collections.emptyList();
+       try( SessionFactory sessionFactory = MySessionFactory.getSessionFactory()){
+           Session session = sessionFactory.openSession();
+           Query<Employee> query = session.createQuery("from Employee order by age", Employee.class);
+           query.setFirstResult(offset);
+           query.setMaxResults(limit);
+           return query.list();
+       }
+
     }
 }
