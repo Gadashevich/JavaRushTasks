@@ -1,6 +1,8 @@
 package com.javarush.task.pro.task09.task0914;
+import java.util.Arrays;
 
-/* 
+
+/*
 Обновление пути
 */
 
@@ -13,6 +15,10 @@ public class Solution {
     }
 
     public static String changePath(String path, String jdk) {
-        return path.replaceAll("jdk.*?/", jdk + "/");
+        String [] array = path.split("/");
+        for (int i = 0; i < array.length; i++) {
+            if(array[i].startsWith("jdk")){array[i] = jdk;}
+        }
+        return String.join("/", array) +"/";
     }
 }
