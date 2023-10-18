@@ -10,6 +10,8 @@ import java.util.LinkedHashMap;
 public class Solution {
     private HashMap map;
 
+
+
     public Solution(HashMap map) {
         this.map = map;
     }
