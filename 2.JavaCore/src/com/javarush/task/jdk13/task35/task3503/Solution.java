@@ -17,6 +17,7 @@ public class Solution<T extends ClassForGenerics & InterfaceForGenerics> {
 
     //    Solution<TestClassWrong2> wrong2Solution = new Solution<>();
     //    wrong2Solution.check();
+
     }
 
     public void check() {
