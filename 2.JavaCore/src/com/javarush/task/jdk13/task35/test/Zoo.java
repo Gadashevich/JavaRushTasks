@@ -1,6 +1,6 @@
 package com.javarush.task.jdk13.task35.test;
 
-public class Zoo<T Animal> {
+public class Zoo<T > {
     public Dog dog;
     public Cat cat;
     public Snake snake;
